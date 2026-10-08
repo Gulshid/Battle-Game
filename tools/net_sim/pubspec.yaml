@@ -1,0 +1,12 @@
+name: net_sim
+description: net_sim (stub, implemented in later phases).
+version: 0.1.0
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.6.0
+dependencies:
+  game_core: any
+dev_dependencies:
+  test: ^1.25.0
+  very_good_analysis: ^7.0.0

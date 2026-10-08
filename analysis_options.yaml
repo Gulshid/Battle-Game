@@ -1,0 +1,15 @@
+include: package:very_good_analysis/analysis_options.yaml
+analyzer:
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+  exclude:
+    - '**/*.g.dart'
+    - '**/*.freezed.dart'
+  errors:
+    todo: ignore
+linter:
+  rules:
+    public_member_api_docs: false
+    avoid_dynamic_calls: true

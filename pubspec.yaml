@@ -1,0 +1,22 @@
+name: battle_game_workspace
+publish_to: none
+environment:
+  sdk: ^3.6.0
+workspace:
+  - packages/game_core
+  - packages/protocol
+  - packages/game_data
+  - apps/game_client
+  - apps/game_server
+  - apps/api_server
+  - tools/bot_client
+  - tools/net_sim
+dev_dependencies:
+  melos: ^7.0.0
+melos:
+  scripts:
+    analyze: dart run melos exec -c 4 -- dart analyze --fatal-infos
+    test: dart run melos exec -c 2 --dir-exists=test --ignore="game_client" -- dart test
+    test:client: cd apps/game_client && flutter test
+    arch: dart run scripts/check_architecture.dart
+    gen: dart run melos exec --depends-on=build_runner -- dart run build_runner build -d
