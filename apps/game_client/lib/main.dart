@@ -14,5 +14,6 @@ class App extends StatelessWidget {
         title: 'Battle Game',
         theme: ThemeData.dark(useMaterial3: true),
         routerConfig: appRouter,
+        debugShowCheckedModeBanner: false,
       );
 }

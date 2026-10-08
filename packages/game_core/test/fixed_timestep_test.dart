@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 WorldState run(double fps, double seconds) {
   const sim = Simulation();
-  var s = const WorldState(
+  var s = WorldState(
     tick: 0,
     players: {1: PlayerState(id: 1, x: 0, y: 0)},
   );
@@ -38,7 +38,7 @@ void main() {
 
   test('diagonal input is not faster than straight', () {
     const sim = Simulation();
-    const s0 = WorldState(
+    final s0 = WorldState(
       tick: 0,
       players: {1: PlayerState(id: 1, x: 0, y: 0)},
     );
@@ -49,5 +49,20 @@ void main() {
     final p = s1.players[1]!;
     expect(p.x, lessThan(kMoveSpeedPerTick));
     expect(p.x, p.y);
+  });
+
+  test('player accelerates instead of starting at full speed', () {
+    const sim = Simulation();
+    var s = WorldState(
+      tick: 0,
+      players: {1: PlayerState(id: 1, x: 0, y: 0)},
+    );
+    final speeds = <int>[];
+    for (var i = 0; i < 6; i++) {
+      s = sim.step(s, {1: const InputCommand(tick: 0, seq: 0, moveX: 127)});
+      speeds.add(s.players[1]!.vx);
+    }
+    expect(speeds.first, lessThan(speeds.last));
+    expect(speeds.last, kMoveSpeedPerTick);
   });
 }

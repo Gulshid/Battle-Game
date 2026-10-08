@@ -11,7 +11,7 @@ final _grid = CollisionGrid.fromRows([
 ]);
 final _sim = Simulation(grid: _grid);
 
-WorldState _start() => const WorldState(
+WorldState _start() => WorldState(
       tick: 0,
       players: {1: PlayerState(id: 1, x: 80 * kFixedOne, y: 80 * kFixedOne)},
     );
@@ -34,7 +34,7 @@ void main() {
   });
 
   test('player slides along a wall when moving diagonally', () {
-    final p = _run(_start(), 10, 127, 127).players[1]!;
+    final p = _run(_start(), 14, 127, 127).players[1]!;
     expect(p.x, 128 * kFixedOne - kPlayerRadius);
     expect(p.y, greaterThan(80 * kFixedOne));
   });
@@ -66,5 +66,17 @@ void main() {
     expect(_grid.solidAt(-1, 0), isTrue);
     expect(_grid.solidAt(5, 5), isTrue);
     expect(_grid.solidAt(2, 2), isFalse);
+  });
+
+  test('lineClear sees walls between two points', () {
+    final g = CollisionGrid.fromRows([
+      '#######',
+      '#..#..#',
+      '#..#..#',
+      '#######',
+    ]);
+    int c(int tile) => tile * kTileSize + kTileSize ~/ 2;
+    expect(g.lineClear(c(1), c(1), c(2), c(2)), isTrue);
+    expect(g.lineClear(c(1), c(1), c(5), c(1)), isFalse);
   });
 }
