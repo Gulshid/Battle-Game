@@ -1,0 +1,51 @@
+{
+  "settings": {
+    "respawn_ms": 3000,
+    "spawn_invuln_ms": 1500
+  },
+  "classes": [
+    {
+      "id": 0,
+      "name": "Warrior",
+      "max_hp": 140,
+      "armor_pct": 10,
+      "move_speed_pxs": 165,
+      "accel_ms": 100,
+      "friction_ms": 70,
+      "abilities": ["warrior_slash", "warrior_shockwave", "warrior_bulwark"],
+      "dash": { "cooldown_ms": 2500, "duration_ms": 150, "distance_px": 60, "iframe_ms": 150 }
+    },
+    {
+      "id": 1,
+      "name": "Archer",
+      "max_hp": 90,
+      "armor_pct": 0,
+      "move_speed_pxs": 185,
+      "accel_ms": 90,
+      "friction_ms": 60,
+      "abilities": ["archer_arrow", "archer_triple_shot", "archer_hindering_shot"],
+      "dash": { "cooldown_ms": 2000, "duration_ms": 200, "distance_px": 70, "iframe_ms": 100 }
+    },
+    {
+      "id": 2,
+      "name": "Mage",
+      "max_hp": 80,
+      "armor_pct": 0,
+      "move_speed_pxs": 170,
+      "accel_ms": 100,
+      "friction_ms": 70,
+      "abilities": ["mage_fireball", "mage_frost_nova", "mage_arcane_storm"],
+      "dash": { "cooldown_ms": 3000, "duration_ms": 120, "distance_px": 64, "iframe_ms": 120 }
+    },
+    {
+      "id": 3,
+      "name": "Dummy",
+      "max_hp": 100000,
+      "armor_pct": 0,
+      "move_speed_pxs": 0,
+      "accel_ms": 100,
+      "friction_ms": 100,
+      "abilities": []
+    }
+  ]
+}
