@@ -1,6 +1,16 @@
+export 'src/bit_io.dart';
+export 'src/bot.dart';
 export 'src/collision_grid.dart';
 export 'src/constants.dart';
+export 'src/defs.dart';
+export 'src/dps_meter.dart';
+export 'src/events.dart';
 export 'src/fixed_timestep.dart';
 export 'src/input_command.dart';
+export 'src/replay.dart';
+export 'src/rng.dart';
 export 'src/simulation.dart';
+export 'src/snapshot_codec.dart';
 export 'src/state.dart';
+export 'src/state_hash.dart';
+export 'src/trig.dart';

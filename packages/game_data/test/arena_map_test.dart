@@ -40,4 +40,24 @@ void main() {
       }
     }
   });
+
+  group('training arena', () {
+    final training = ArenaMap.parse(kTrainingRows);
+
+    test('is rectangular with a solid border', () {
+      expect(kTrainingRows.map((r) => r.length).toSet().length, 1);
+      final g = training.grid;
+      for (var x = 0; x < g.width; x++) {
+        expect(g.solidAt(x, 0), isTrue);
+        expect(g.solidAt(x, g.height - 1), isTrue);
+      }
+    });
+
+    test('has spawns that are free', () {
+      expect(training.spawns.length, greaterThanOrEqualTo(4));
+      for (final s in training.spawns) {
+        expect(training.grid.circleHits(s.x, s.y, kPlayerRadius), isFalse);
+      }
+    });
+  });
 }

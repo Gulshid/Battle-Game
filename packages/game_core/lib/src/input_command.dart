@@ -18,14 +18,30 @@ class InputCommand {
 
   static const idle = InputCommand(tick: 0, seq: 0);
 
-  bool has(int bit) => buttons & (1 << bit) != 0;
+  /// True if button [bit] (kBtnAttack and friends) is held.
+  bool has(int bit) => (buttons >> bit) & 1 == 1;
 
-  InputCommand copyWith({int? tick, int? seq}) => InputCommand(
+  /// Same controls, ignoring tick and seq. Used by replay compression.
+  bool sameControls(InputCommand o) =>
+      moveX == o.moveX &&
+      moveY == o.moveY &&
+      buttons == o.buttons &&
+      aimAngle == o.aimAngle;
+
+  InputCommand copyWith({
+    int? tick,
+    int? seq,
+    int? moveX,
+    int? moveY,
+    int? buttons,
+    int? aimAngle,
+  }) =>
+      InputCommand(
         tick: tick ?? this.tick,
         seq: seq ?? this.seq,
-        moveX: moveX,
-        moveY: moveY,
-        buttons: buttons,
-        aimAngle: aimAngle,
+        moveX: moveX ?? this.moveX,
+        moveY: moveY ?? this.moveY,
+        buttons: buttons ?? this.buttons,
+        aimAngle: aimAngle ?? this.aimAngle,
       );
 }

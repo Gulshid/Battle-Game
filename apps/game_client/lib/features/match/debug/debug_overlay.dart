@@ -3,7 +3,7 @@ import 'package:flutter/painting.dart';
 import 'package:game_client/features/match/debug/frame_metrics.dart';
 
 class DebugOverlay extends TextComponent {
-  DebugOverlay(this.metrics, {required this.entityCount})
+  DebugOverlay(this.metrics, {required this.entityCount, this.extra})
       : super(
           position: Vector2(8, 8),
           priority: 1000,
@@ -18,16 +18,21 @@ class DebugOverlay extends TextComponent {
 
   final FrameMetrics metrics;
   final int Function() entityCount;
+
+  /// Extra lines (state hash, replay check result).
+  final String Function()? extra;
   bool visible = true;
 
   @override
   void update(double dt) {
     text = 'FPS ${metrics.fps.toStringAsFixed(0)}  '
         'worst ${metrics.worstMs.toStringAsFixed(1)} ms\n'
-        'sim ${metrics.tickRate} ticks/s  steps/frame ${metrics.stepsLastFrame}\n'
+        'sim ${metrics.tickRate} ticks/s  '
+        'steps/frame ${metrics.stepsLastFrame}\n'
         'entities ${entityCount()}\n'
         'ping ${metrics.pingMs} ms  '
-        'pred.err ${metrics.predictionError.toStringAsFixed(2)}';
+        'pred.err ${metrics.predictionError.toStringAsFixed(2)}'
+        '${extra == null ? '' : '\n${extra!()}'}';
   }
 
   @override

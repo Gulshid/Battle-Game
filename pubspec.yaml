@@ -19,4 +19,6 @@ melos:
     test: dart run melos exec -c 2 --dir-exists=test --ignore="game_client" -- dart test
     test:client: cd apps/game_client && flutter test
     arch: dart run scripts/check_architecture.dart
+    data: dart run scripts/gen_game_data.dart
+    data:check: dart run scripts/gen_game_data.dart --check
     gen: dart run melos exec --depends-on=build_runner -- dart run build_runner build -d

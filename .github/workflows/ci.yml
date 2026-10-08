@@ -17,6 +17,7 @@ jobs:
       - run: dart run melos bootstrap
       - run: dart format --set-exit-if-changed .
       - run: dart run melos run arch
+      - run: dart run melos run data:check
       - run: dart run melos run analyze
       - run: dart run melos run test
       - run: dart run melos run test:client

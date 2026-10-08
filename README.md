@@ -15,6 +15,7 @@ cd apps/game_client && flutter create . --org com.yourstudio --project-name game
 ```bash
 dart run melos run arch
 dart run melos run analyze
+dart run melos run data        # regenerate embedded JSON after editing data/*.json
 dart run melos run test
 dart run melos run test:client
 cd apps/game_client && flutter run --dart-define-from-file=config/dev.json
@@ -24,3 +25,9 @@ Press F3 in the client to toggle the debug overlay.
 ## Layout
 game_core (pure Dart sim) <- protocol <- game_server / api_server. game_client uses game_core.
 Check the latest versions on pub.dev before pinning (flame, melos, very_good_analysis).
+
+## Playing it (Phase 03/04)
+Home screen: pick a class, then "Arena" (you vs 3 bots) or "Training arena"
+(dummies + DPS meter). F3 toggles the debug overlay, F4 re-simulates the whole
+match from its recording and checks every state hash.
+See docs/phase03-combat.md and docs/phase04-core.md.

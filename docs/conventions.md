@@ -4,4 +4,8 @@
 - Input is sampled once per sim tick into InputCommand.
 - Positions are fixed-point ints in game_core; floats only in rendering.
 - Pool anything spawned frequently (projectiles, sparks, damage numbers).
-- Camera shake is visual only.
+- Camera shake, hit-stop and flashes are visual only and never change state.
+- States returned by `Simulation.step` are immutable by convention.
+- game_core: no floats in rules, no clocks, no `Random()`; use `Rng`.
+- Game data is JSON in game_data/data; run `melos run data` after editing.
+- A bug found in play becomes a test (unit test or golden replay).
