@@ -7,3 +7,4 @@ pubspec.lock
 .idea/
 .fvm/flutter_sdk
 infra/data/
+.DS_Store
