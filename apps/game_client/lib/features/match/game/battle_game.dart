@@ -47,7 +47,7 @@ class BattleGame extends FlameGame with KeyboardEvents {
     );
     world
       ..add(ArenaView(arena.grid))
-      ..add(PlayerView(id: localId, color: const Color(0xFF4FC3F7)));
+      ..add(PlayerView(id: localId));
     _rig = CameraRig(camera)
       ..snapTo(Vector2(spawn.x / kFixedOne, spawn.y / kFixedOne));
     _debug = DebugOverlay(metrics, entityCount: () => world.children.length);
