@@ -1,3 +1,4 @@
+export 'src/collision_grid.dart';
 export 'src/constants.dart';
 export 'src/fixed_timestep.dart';
 export 'src/input_command.dart';

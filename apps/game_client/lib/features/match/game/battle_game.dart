@@ -4,11 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart' show KeyEventResult;
 import 'package:game_client/features/match/debug/debug_overlay.dart';
 import 'package:game_client/features/match/debug/frame_metrics.dart';
+import 'package:game_client/features/match/game/arena_view.dart';
 import 'package:game_client/features/match/game/player_view.dart';
 import 'package:game_client/features/match/input/input_source.dart';
 import 'package:game_client/features/match/input/keyboard_input.dart';
 import 'package:game_client/features/match/render/camera_rig.dart';
 import 'package:game_core/game_core.dart';
+import 'package:game_data/game_data.dart';
 
 class BattleGame extends FlameGame with KeyboardEvents {
   BattleGame({required this.input, required this.keyboard});
@@ -16,12 +18,13 @@ class BattleGame extends FlameGame with KeyboardEvents {
   final InputSource input;
   final KeyboardInput keyboard;
 
-  static const _sim = Simulation();
   static const localId = 1;
 
   final FixedTimestep _clock = FixedTimestep(stepSeconds: kSimDt);
   final FrameMetrics metrics = FrameMetrics();
 
+  late final ArenaMap arena;
+  late final Simulation _sim;
   late WorldState prev;
   late WorldState curr;
   int _seq = 0;
@@ -29,17 +32,24 @@ class BattleGame extends FlameGame with KeyboardEvents {
   late final DebugOverlay _debug;
 
   @override
-  Color backgroundColor() => const Color(0xFF1B1F2A);
+  Color backgroundColor() => const Color(0xFF14161F);
 
   @override
   Future<void> onLoad() async {
-    curr = prev = const WorldState(
+    arena = ArenaMap.parse(kArenaRows);
+    _sim = Simulation(grid: arena.grid);
+    final spawn = arena.spawns.first;
+    curr = prev = WorldState(
       tick: 0,
-      players: {localId: PlayerState(id: localId, x: 0, y: 0)},
+      players: {
+        localId: PlayerState(id: localId, x: spawn.x, y: spawn.y),
+      },
     );
-    // Next: load a Tiled map with flame_tiled and add it to `world`.
-    world.add(PlayerView(id: localId, color: const Color(0xFF4FC3F7)));
-    _rig = CameraRig(camera);
+    world
+      ..add(ArenaView(arena.grid))
+      ..add(PlayerView(id: localId, color: const Color(0xFF4FC3F7)));
+    _rig = CameraRig(camera)
+      ..snapTo(Vector2(spawn.x / kFixedOne, spawn.y / kFixedOne));
     _debug = DebugOverlay(metrics, entityCount: () => world.children.length);
     camera.viewport.add(_debug);
   }
